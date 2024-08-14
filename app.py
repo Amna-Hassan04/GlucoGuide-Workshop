@@ -3,7 +3,6 @@ import anthropic
 
 # Access your API key
 api_key = st.secrets["claude_api_key"]
-
 # Sidebar inputs
 st.sidebar.header("Input Your Details")
 fasting_sugar = st.sidebar.number_input("Fasting Sugar Level (mg/dL)", min_value=0, max_value=500, step=1)
@@ -46,10 +45,14 @@ def generate_meal_plan(fasting_sugar, pre_meal_sugar, post_meal_sugar, dietary_p
         ]
     )
 
-    return message.content
+    raw_context = message.content
+    itinerary = raw_context[0].text
+    return itinerary
 
 # Button to generate meal plan
 if st.sidebar.button("Generate Meal Plan"):
     meal_plan = generate_meal_plan(fasting_sugar, pre_meal_sugar, post_meal_sugar, dietary_preferences)
+    
+    # Display the meal plan as formatted text
     st.subheader("Your Personalized Meal Plan")
-    st.write(meal_plan)
+    st.markdown(meal_plan)
