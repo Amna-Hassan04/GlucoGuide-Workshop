@@ -1,7 +1,2 @@
 streamlit
-clarifai.client.model
-base64
-dotenv
-PIL
-io
-os
+anthropic
